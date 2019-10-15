@@ -1,0 +1,29 @@
+.drop-div{
+    padding-left: 5%;
+    font-size: 16px;
+    border-bottom: 1px solid silver;
+}
+.option-container{
+    width: 15%;
+    background: #f8f8f8;
+}
+.drop-div:hover{
+    background: #c6c6c6;
+}
+.p-l-2per{
+    padding-left: 2%;
+}
+.w-15per{
+    width: 15%;
+}
+.hand-pointer{
+    cursor: pointer;
+}
+.scroll-drop-div{
+    max-height: 300px;
+    overflow: auto;
+}
+.active-cyan-4 input[type=text]:focus:not([readonly]) {
+    border: 1px solid #4dd0e1;
+    box-shadow: 0 0 0 1px #4dd0e1;
+    }

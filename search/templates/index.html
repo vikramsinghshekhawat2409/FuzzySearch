@@ -1,0 +1,113 @@
+{% load staticfiles %}
+<html>
+    <head>
+        <title>Fuzzy Search</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <!-- CSS Files -->
+        <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" media="screen">
+        <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet">
+        <link href="{% static 'fonts/icon-7-stroke/css/pe-icon-7-stroke.css' %}" rel="stylesheet">
+        <link href="{% static 'css/animate.css' %}" rel="stylesheet" media="screen">
+        <link href="{% static 'css/owl.theme.css' %}" rel="stylesheet">
+        <link href="{% static 'css/owl.carousel.css' %}" rel="stylesheet">
+        <link href="{% static 'css/custom.css' %}" rel="stylesheet">
+        <!-- Colors -->
+        <link href="{% static 'css/css-index.css' %}" rel="stylesheet" media="screen">
+        <script  src="{% static 'js/jquery.min.js' %}"></script>
+        <script  src="{% static 'js/bootstrap.min.js' %}"></script>
+        <script  src="{% static 'js/chosen.jquery.js' %}"></script>
+        <script  src="{% static 'js/dropdown.js' %}"></script>
+        <script  src="{% static 'js/transition.js' %}"></script>
+    </head>
+    <body>
+            <div class="fullscreen landing parallax" style="background-image:url('/static/images/bg.jpg');" data-img-width="2000" data-img-height="1333" data-diff="100">            <!-- <img src="{% static 'images/bg.jpg' %}"/> -->
+            
+              <div class="overlay">
+                <div class="container">
+                  <div class="row">
+                    <div class="col-md-10 mr-auto ml-auto text-center">
+          
+          
+                      <!-- /.main title -->
+                      <h1 class="wow fadeInLeft">
+                        Fuzzy Search
+                      </h1>
+          
+                      <!-- /.header paragraph -->
+                      <div class="landing-text wow fadeInLeft">
+                        <p>A <strong>fuzzy search</strong> is a process that locates Web pages that are likely to be relevant to a search argument even when the argument does not exactly correspond to the desired information.</p>
+                      </div>
+          
+                      <button type="button" onclick="save_dataset()" class="subscribe-btn btn">Save Dataset</button>
+                      <!-- /.subscribe form -->
+                      <div class="subscribe-form wow fadeInUp">
+                        <form class="news-letter mailchimp" onsubmit="search_dataset()" role="form" method="GET">
+                          <input type="hidden" name="u" value="503bdae81fde8612ff4944435">
+                          <input type="hidden" name="id" value="bfdba52708">
+                          <input class="form-control" autocomplete="off" type="text" name="search_str" oninput="search_dataset()" id="search_str" placeholder="Start Fuzzy Search" required="">
+                          <button type="submit" class="subscribe-btn btn">SEARCH</button>
+                          
+                        </form>
+                      </div>
+                    </div>
+                    </div>
+                    <div class="row">
+                      <ul hidden id="optionContainer" class="col-md-10 mr-auto ml-auto option-container">
+                      </ul>
+                    </div>
+                  </div>
+
+                </div>
+
+                </div>
+
+              <!-- <input class="w-15per" autocomplete="off" oninput="myFunction()" type="text" value="{{ search_str }}" id="search_str" name="search_str">
+            <button type="button" onclick="myFunction()">Submit</button>
+
+            <div class="option-container" id="optionContainer"></div>
+        </form> -->
+    </body>
+</html>
+
+<script>
+    function search_dataset() {
+        search_str = document.getElementById('search_str').value;
+        $.ajax({
+          url: "http://127.0.0.1:8000/home/search_val/",
+          type: "get",
+          data: {
+            search_str: search_str
+          },
+          success: function(response) {
+            //Do Something
+            console.log(response);
+            htm = '<ul>'
+            li_str = ''
+            for(var i=0; i<response.length; i++){
+               li_str += "<li><a href='#'>"+response[i].name+"</a></li>";
+            }
+            document.getElementById("optionContainer").innerHTML = li_str;
+            if(response.length>0)
+            document.getElementById("optionContainer").removeAttribute("hidden");
+            else
+            document.getElementById("optionContainer").setAttribute("hidden","");
+          },
+          error: function(xhr) {
+            //Do Something to handle error
+          }
+        });
+    }
+    
+    function save_dataset(){
+      $.ajax({
+          url: "http://127.0.0.1:8000/home/save_data_set/",
+          type: "get",
+          success: function(response) {
+            alert(response);
+          },
+          error: function(xhr) {
+            //Do Something to handle error
+          }
+        });
+    }
+</script>

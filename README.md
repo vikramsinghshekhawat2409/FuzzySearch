@@ -1,2 +1,1 @@
-# FuzzySearch
-FullThrottleLabs Test description
+# fuzzysearch
