@@ -16,6 +16,11 @@ def home(request):
 #function for searching in the dataset
 @api_view(['GET', 'POST', ])
 def search(request):
+    """
+    This function is fetching the results using the string provided in the request.
+    :param request: search_string which the function is using to filter out the data-set
+    :return: returns a list of 25 elements which include the data from the data-set based on the provided search_string
+    """
     try:
         search_str = request.GET.get('search_str')
         start_list = []
@@ -36,6 +41,11 @@ def search(request):
 
 #function to save data set from the file
 def save_data_set(request):
+    """
+    this function is saving the data-set from the csv to the sqlite3 db. once imported the data-set can not imported again and will generate an alert!
+    :param request: NONE
+    :return: returns the message with status of the operation started to import the data-set in the db
+    """
     try:
         msg = 'Data set already present'
         data_count = DataSet.objects.filter().count()
